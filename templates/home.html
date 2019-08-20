@@ -1,0 +1,34 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div style="background-color: #ccc; padding:10px; ">
+<span style="margin-left:10px"><a href="{% url 'logout' %}">logout</a></span>
+<span style="margin-left:10px"><a href="{% url 'mycv' %}">MyCv</a></span>
+</div>
+<br>
+<form method="post">
+  {% csrf_token %}
+  <input type="text" placeholder="name" name="search">
+  <input type="text" placeholder="city" name="city">
+  <input type="text" placeholder="specialization" name="specialization">
+  <button type="submit">Search</button>
+</form>
+<hr>
+  {% for cv in info %}
+  <p>full name: {{cv.full_name}}</p>
+  <p>age: {{cv.age}}</p>
+  <p>city: {{cv.city}}</p>
+  <p>note: {{cv.note}}</p>
+  <p>specialization: {{cv.specialization}}</p>
+  <hr>
+  {% endfor %}
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a>
+  <a href="{% url 'signup' %}">signUp</a>
+{% endif %}
+{% endblock %}

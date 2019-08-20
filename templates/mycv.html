@@ -1,0 +1,21 @@
+
+{% extends 'base.html' %}
+
+{% block title %}mycv{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  {% for cv in info %}
+  <p>full name: {{cv.full_name}}</p>
+  <p>age: {{cv.age}}</p>
+  <p>city: {{cv.city}}</p>
+  <p>note: {{cv.note}}</p>
+  <p>specialization: {{cv.specialization}}</p>
+  <hr>
+  {% endfor %}
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a>
+  <a href="{% url 'signup' %}">signUp</a>
+{% endif %}
+{% endblock %}
